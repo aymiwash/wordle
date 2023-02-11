@@ -1,0 +1,36 @@
+body {
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+background-color: rgb(198, 214, 208);
+}
+
+header{
+    text-align: center;
+}
+
+.game {
+    margin: auto;
+    max-width: 200px;
+}
+
+.guess {
+    display: grid;
+    margin-bottom: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.letter:focus{
+    border: rgb(9, 111, 243) solid 2px;
+    outline: none;
+}
+.letter{
+    background-color: rgb(232, 245, 240);
+    margin-left: 0.1px;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    border: black solid 1.5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
