@@ -55,3 +55,7 @@ header {
     font-weight: bold;
     text-align: center;
 }
+
+.predict_good_letter {
+    color: rgba(148, 147, 147, 0.753);
+}

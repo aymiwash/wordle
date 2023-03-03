@@ -6,6 +6,7 @@ let wordOfTheDay = ""
 
 let letter = ""
 let currentGuess = []
+let rightLetters = [, , , ,]
 
 
 let currentIndex = 0
@@ -34,6 +35,8 @@ function whatIsTheWordToday() {
 //ajoute la lettre sur le HTML
 function displayLetter(line) {
     for (let i = 0; i < currentGuess.length; i++) {
+        lines[currentIndex].querySelector(`.letter-${i + 1}`).classList.remove("predict_good_letter")
+        line.querySelector(`.letter-${i + 1}`).innerText = ""
         line.querySelector(`.letter-${i + 1}`).innerText = currentGuess[i]
     }
 }
@@ -65,6 +68,8 @@ function updateLetterColor(line) {
         if (wordOfTheDay[i] === currentGuess[i]) {
             wordList.splice(i, 1, "")
             line.querySelector(`.letter-${i + 1}`).classList.add("good_placed_letter")
+            rightLetters.splice(i, 1, wordOfTheDay[i])
+            console.log(rightLetters)
         }
     }
     for (let i = 0; i < wordOfTheDay.length; i++) {
@@ -125,6 +130,14 @@ function init() {
             if (exist) {
                 updateLetterColor(lines[currentIndex])
                 const goodWord = isTheGuessGood(currentGuess.join(""))
+                for (let i = 0; i < wordOfTheDay.length; i++) {
+                    if (rightLetters[i] === undefined) {
+                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = ""
+                    } else
+                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = rightLetters[i]
+                    lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).classList.add("predict_good_letter")
+
+                }
                 if (!goodWord) {
                     currentGuess = []
                     currentIndex++
