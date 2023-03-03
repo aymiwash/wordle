@@ -89,7 +89,6 @@ function updateLetterColor(line) {
 function isTheGuessGood(myActualGuess) {
     console.log("today word is:", wordOfTheDay)
     if (myActualGuess === wordOfTheDay) {
-
         document.body.innerHTML += "<div><p class =\"win\">You win ! The word was \"" + wordOfTheDay + "\"</p></div>"
         return true
     } else {
@@ -121,6 +120,11 @@ function init() {
             for (let i = currentGuess.length; i >= 0; i--) {
                 if (currentGuess[i] === undefined) {
                     lines[currentIndex].querySelector(`.letter-${i + 1}`).innerText = ""
+                    if (rightLetters[i] === undefined) {
+                        lines[currentIndex].querySelector(`.letter-${i + 1}`).innerText = ""
+                    } else
+                        lines[currentIndex].querySelector(`.letter-${i + 1}`).innerText = rightLetters[i]
+                    lines[currentIndex].querySelector(`.letter-${i + 1}`).classList.add("predict_good_letter")
                 }
             }
         }
@@ -136,7 +140,6 @@ function init() {
                     } else
                         lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = rightLetters[i]
                     lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).classList.add("predict_good_letter")
-
                 }
                 if (!goodWord) {
                     currentGuess = []
