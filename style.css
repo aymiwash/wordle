@@ -1,47 +1,54 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(198, 214, 208);
+    color: rgba(0, 0, 0, 0.712);
 }
 
 header {
     text-align: center;
 }
 
+header p {
+    font-size: 1.5em;
+}
+
 .word {
     margin: auto;
-    max-width: 200px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+
 }
 
 .letter {
+    font-size: 1.6em;
     background-color: rgb(232, 245, 240);
-    margin-left: 4px;
-    margin-bottom: 10px;
+    margin-left: 8px;
+    margin-bottom: 15px;
     padding-top: 2.5px;
-    height: 24px;
-    width: 26px;
+    height: 35px;
+    width: 40px;
     text-align: center;
-    border: rgb(34, 140, 167) solid 3px;
+    border: rgb(34, 140, 167) solid 4px;
     text-transform: uppercase;
     font-weight: bold;
 
 }
 
 .word_error {
-    border: rgb(185, 11, 11) solid 3px;
+    border: rgb(185, 11, 11) solid 4px;
 }
 
 .good_letter {
-    border: rgb(230, 185, 39) solid 3px;
+    border: rgb(230, 185, 39) solid 4px;
 }
 
 .good_placed_letter {
-    border: rgb(6, 185, 45) solid 3px;
+    border: rgb(6, 185, 45) solid 4px;
 }
 
 .wrong_letter {
-    border: rgb(168, 168, 168) solid 3px;
+    border: rgb(168, 168, 168) solid 4px;
 }
 
 .win {
