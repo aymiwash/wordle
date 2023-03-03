@@ -90,9 +90,7 @@ function isTheGuessGood(myActualGuess) {
     console.log("today word is:", wordOfTheDay)
     if (myActualGuess === wordOfTheDay) {
         document.body.innerHTML += "<div><p class =\"win\">You win ! The word was \"" + wordOfTheDay + "\"</p></div>"
-        return true
-    } else {
-        return false
+        return
     }
 }
 
