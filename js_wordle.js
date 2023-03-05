@@ -6,7 +6,7 @@ let wordOfTheDay = ""
 
 let letter = ""
 let currentGuess = []
-let rightLetters = [, , , ,]
+let rightLetters = ["", "", "", "", ""]
 
 
 let currentIndex = 0
@@ -48,14 +48,13 @@ function isLetter(character) {
 
 //vérifie si le mot fait 5 lettres et s'il existe
 async function doesWordExist(wordOfFiveChar) {
-    if (wordOfFiveChar.length !== 5) return false
+    if (wordOfFiveChar.length !== wordOfTheDay.length) return false
     // pour passer ici, il faut qu'il passe toute les étapes au dessus
     let promise = await fetch(validWordOrNot, {
         method: "POST",
         body: JSON.stringify({ "word": wordOfFiveChar })
     })
     let processedResponse = await promise.json()
-    // console.log(processedResponse.validWord)
     return processedResponse.validWord
 }
 
@@ -69,7 +68,6 @@ function updateLetterColor(line) {
             wordList.splice(i, 1, "")
             line.querySelector(`.letter-${i + 1}`).classList.add("good_placed_letter")
             rightLetters.splice(i, 1, wordOfTheDay[i])
-            console.log(rightLetters)
         }
     }
     for (let i = 0; i < wordOfTheDay.length; i++) {
@@ -107,7 +105,7 @@ function init() {
     document.addEventListener("keydown", async function (event) {
         letter = event.key
         // Si le  caractère est une lettre et tant qu'on a pas 5 caractères
-        if (isLetter(letter) && currentGuess.length < 5) {
+        if (isLetter(letter) && currentGuess.length < wordOfTheDay.length) {
             currentGuess.push(letter)
             displayLetter(lines[currentIndex])
             // datas[currentIndex].value.push(letter)
@@ -127,17 +125,16 @@ function init() {
             }
         }
         //Vérifie le mot quand on appuie Entrer
-        if (letter === "Enter" && currentGuess.length === 5) {
+        if (letter === "Enter" && currentGuess.length === wordOfTheDay.length) {
             let exist = await doesWordExist(currentGuess.join(""))
             if (exist) {
                 updateLetterColor(lines[currentIndex])
                 const goodWord = isTheGuessGood(currentGuess.join(""))
                 for (let i = 0; i < wordOfTheDay.length; i++) {
-                    if (rightLetters[i] === undefined) {
-                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = ""
-                    } else
-                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = rightLetters[i]
-                    lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).classList.add("predict_good_letter")
+                    if (currentIndex < wordOfTheDay.length) {
+                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).innerText = rightLetters[i];
+                        lines[currentIndex + 1].querySelector(`.letter-${i + 1}`).classList.add("predict_good_letter")
+                    }
                 }
                 if (!goodWord) {
                     currentGuess = []
@@ -145,7 +142,6 @@ function init() {
                 }
                 if (currentIndex === maxAttempt) {
                     document.body.innerHTML += "<div><p class = \"lose\">You lose ! The word was \"" + wordOfTheDay + "\"</p></div>"
-                    console.log("You lose ! The word was", wordOfTheDay)
                 }
             } else {
                 let myWrongWord = Array.from(lines[currentIndex].querySelectorAll(`.letter`))
