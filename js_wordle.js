@@ -17,6 +17,10 @@ let datas = [{ value: [] }]
  * win : false}
  */
 
+function getFocused() {
+    console.log("blabla")
+    document.getElementsByClassName("keypress").focus()
+}
 
 //va chercher le mot du jour sur l'API
 function whatIsTheWordToday() {
@@ -88,8 +92,9 @@ function isTheGuessGood(myActualGuess) {
     console.log("today word is:", wordOfTheDay)
     if (myActualGuess === wordOfTheDay) {
         document.body.innerHTML += "<div><p class =\"win\">You win ! The word was \"" + wordOfTheDay + "\"</p></div>"
-        return
-    }
+        return true
+    } else
+        return false
 }
 
 function init() {
@@ -139,10 +144,11 @@ function init() {
                 if (!goodWord) {
                     currentGuess = []
                     currentIndex++
+                    if (currentIndex === maxAttempt) {
+                        document.body.innerHTML += "<div><p class = \"lose\">You lose ! The word was \"" + wordOfTheDay + "\"</p></div>"
+                    }
                 }
-                if (currentIndex === maxAttempt) {
-                    document.body.innerHTML += "<div><p class = \"lose\">You lose ! The word was \"" + wordOfTheDay + "\"</p></div>"
-                }
+
             } else {
                 let myWrongWord = Array.from(lines[currentIndex].querySelectorAll(`.letter`))
                 for (let i = 0; i < myWrongWord.length; i++) {
@@ -160,12 +166,13 @@ function init() {
 }
 
 // 1 va chercher le mot ....
-document.body.style = "opacity : 0.5";
 
 whatIsTheWordToday().then((word) => {
     // 2 le mot est trouvé, assigne la à wordOfTheDay
     wordOfTheDay = word
-    document.body.style = "opacity : 1";
+    document.querySelector(".loading").classList.add("disappear")
+    document.querySelector(".opacity").classList.remove("opacity")
+    document.querySelector(".game").classList.remove("opacity")
     // 3 démarre mon jeu
     init()
 })

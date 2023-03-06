@@ -66,3 +66,32 @@ header p {
 .predict_good_letter {
     color: rgba(148, 147, 147, 0.753);
 }
+
+.keypress {
+    background: none;
+    border: none;
+    width: 0px;
+    height: 0px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    max-width: 60px;
+    animation: spin 1.2s infinite linear;
+    position: absolute;
+    top: 11%;
+    left: 49%;
+}
+
+.disappear {
+    display: none;
+}
+
+.opacity {
+    opacity: 0.5;
+}

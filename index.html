@@ -10,11 +10,13 @@
 </head>
 
 <body>
-    <header>
+    <img src="images/loading.png" alt="loading" class="loading"></img>
+    <header class="opacity">
         <h1>Welcome to Aymi's Wordle Game !</h1>
         <p>Guess today's word :</p>
     </header>
-    <div class="game">
+    <input type="text" onclick="getFocused()" class="keypress" maxlength="0">
+    <div class="game opacity">
         <div class="n1 word">
             <div class="letter letter-1"></div>
             <div class="letter letter-2"></div>
